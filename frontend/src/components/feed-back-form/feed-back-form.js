@@ -44,7 +44,7 @@ const FeedBackForm = () => {
                 return;
             }
             else {
-                await axios.post('http://localhost:5000/api/feedback', formData);
+                await axios.post(`${process.env.NODE_ENV === "development" ? "http://localhost:5000" : "https://sunopticalfeedback.onrender.com"}/api/feedback`, formData);
                 setFormData({ name: "", email: "", message: "" });
                 setMessage("Feedback submitted successfully thank you!");
                 setShowModal(true);
@@ -59,7 +59,7 @@ const FeedBackForm = () => {
 
     const handleGetFeedback = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/api/feedback");
+            const response = await axios.get(`${process.env.NODE_ENV === "development" ? "http://localhost:5000" : "https://sunopticalfeedback.onrender.com"}/api/feedback`);
             console.log("response", response);
         }
         catch (error) {
@@ -98,7 +98,7 @@ const FeedBackForm = () => {
 
             <button className={`submit-btn ${!canSubmit ? "disable" : ""}`} onClick={() => handleSubmit()}>Submit</button>
             {showModal && <MessageModal message={message} showModal={showModal} setShowModal={setShowModal} />}
-            {/* <button onClick={() => handleGetFeedback()}>Get feedbacks</button> */}
+            <button onClick={() => handleGetFeedback()}>Get feedbacks</button>
         </>
     )
 }

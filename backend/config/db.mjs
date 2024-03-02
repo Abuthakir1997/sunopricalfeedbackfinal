@@ -2,7 +2,9 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect("mongodb+srv://abudxat:Abuthakir%401997@cluster0.qxccg.mongodb.net/", {
+        const conn = await mongoose.connect(process.env.MONGO_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
         });
         console.log(`MongoDB connected: ${conn.connection.host}`);
     }
