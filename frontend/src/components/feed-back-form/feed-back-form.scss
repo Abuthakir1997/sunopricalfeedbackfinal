@@ -39,7 +39,7 @@
             label {
                 font-weight: bold;
                 margin-right: 10px;
-                margin-bottom: 15px;
+                margin-bottom: 10px;
             }
 
             input {
@@ -59,6 +59,8 @@
 
     .rating {
         &-input {
+            margin-bottom: 15px;
+
             .rating-header-text {
                 margin: 0;
             }

@@ -115,7 +115,7 @@ const FeedBackForm = () => {
                     <input required placeholder='Please type your phone number' name="phoneNumber" type='text' value={formData.phoneNumber} onChange={handleChangePhoneNumber} maxLength={10} />
                 </div>
                 <div className='rating-input'>
-                    <h3 className='rating-header-text'>Please Provide Your Rating</h3>
+                    <h5 className='rating-header-text'>Please Provide Your Rating</h5>
                     <Rating initialValue={rating} onChange={handleRating}></Rating>
                 </div>
                 <div className='text-area-input'>
