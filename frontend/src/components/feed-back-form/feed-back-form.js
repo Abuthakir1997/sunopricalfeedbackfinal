@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import "./feed-back-form.scss";
 import axios from "axios";
 import MessageModal from '../message-modal/message-modal';
@@ -20,6 +20,13 @@ const FeedBackForm = () => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value, rating: rating })
     }, [formData]);
+
+    const handleChangePhoneNumber = useCallback((event) => {
+        const inputPhoneNumber = event.target.value.replace(/\D/g, '');
+        const trimmedPhoneNumber = inputPhoneNumber.slice(0, 10); // Limit to 10 digits
+        setFormData({ ...formData, phoneNumber: trimmedPhoneNumber });
+    }, [formData]);
+
 
     const checkDataValid = useCallback((formData) => {
         let isValid = false;
@@ -52,6 +59,7 @@ const FeedBackForm = () => {
                 setFormData({ name: "", email: "", message: "", phoneNumber: "", rating: 0 });
                 setMessage("Feedback submitted successfully thank you!");
                 setShowModal(true);
+                setRating(0);
             }
 
         }
@@ -83,6 +91,7 @@ const FeedBackForm = () => {
         return false;
     }, [formData])
 
+
     return (
         <>
             <TripleTapComponent />
@@ -103,7 +112,7 @@ const FeedBackForm = () => {
                 </div>
                 <div className='phone-number-input'>
                     <label htmlFor='phoneNumber'>Phone: <span className='required-field'>*</span></label>
-                    <input required placeholder='Please type your phone number' name="phoneNumber" type='text' value={formData.phoneNumber} onChange={handleChange} pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" />
+                    <input required placeholder='Please type your phone number' name="phoneNumber" type='text' value={formData.phoneNumber} onChange={handleChangePhoneNumber} maxLength={10} />
                 </div>
                 <div className='rating-input'>
                     <h3 className='rating-header-text'>Please Provide Your Rating</h3>

@@ -19,12 +19,12 @@ const CustomerFeedbacks = () => {
 
     const feedBacksElement = useMemo(() => {
         if (!feedBacks.length) return null;
-        return feedBacks.map((feedBack) => {
+        return feedBacks.map((feedBack, index) => {
             const { name, message, email } = feedBack;
             return (
                 <>
                     {checkIfHasValid(message) &&
-                        <div className='customer-feedbacks-container-contents-content'>
+                        <div className='customer-feedbacks-container-contents-content' key={index}>
                             <div className='customer-feedbacks-container-contents-content-name'>
                                 {name}
                             </div>
