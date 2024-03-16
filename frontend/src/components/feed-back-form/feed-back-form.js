@@ -2,50 +2,54 @@ import React, { useCallback, useMemo, useState } from 'react';
 import "./feed-back-form.scss";
 import axios from "axios";
 import MessageModal from '../message-modal/message-modal';
+import TripleTapComponent from '../triple-tap-component/triple-tap.component';
+import Rating from '../rating/rating-component';
+import { checkIfEmailIsValid } from '../../utils/validation.utils';
 const FeedBackForm = () => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        message: ""
+        message: "",
+        phoneNumber: "",
+        rating: 0
     });
+    const [rating, setRating] = useState(0);
     const [message, setMessage] = useState("");
     const [showModal, setShowModal] = useState(false);
     const handleChange = useCallback((event) => {
         const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value })
+        setFormData({ ...formData, [name]: value, rating: rating })
     }, [formData]);
 
     const checkDataValid = useCallback((formData) => {
         let isValid = false;
-        let emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-        if (formData.name !== "") {
+        if (!checkIfEmailIsValid(formData.email)) {
+            isValid = false;
+            setMessage("Please provide a valid email");
+            return;
+        }
+        if (formData.phoneNumber !== "") {
             isValid = true
         }
-        if (formData.email !== "") {
-            if (emailPattern.test(formData.email)) {
-                isValid = true;
-            }
-            else {
-                isValid = false;
-                return;
-            }
-        }
-        if (formData.message !== "") {
-            isValid = true;
+        else {
+            isValid = false;
+            setMessage("Please provide a phone number");
+            return;
         }
         return isValid;
     }, [formData]);
 
+    const isDevelopment = process.env.NODE_ENV === "development";
+    const apiEndPointUrl = `${process.env.NODE_ENV === "development" ? "http://localhost:5000" : "https://sunopticalfeedback.onrender.com"}`
     const handleSubmit = async () => {
         try {
             if (!checkDataValid(formData)) {
-                setMessage("Please provide valid value");
                 setShowModal(true);
                 return;
             }
             else {
-                await axios.post(`${process.env.NODE_ENV === "development" ? "http://localhost:5000" : "https://sunopticalfeedback.onrender.com"}/api/feedback`, formData);
-                setFormData({ name: "", email: "", message: "" });
+                await axios.post(`${apiEndPointUrl}/api/feedback`, formData);
+                setFormData({ name: "", email: "", message: "", phoneNumber: "", rating: 0 });
                 setMessage("Feedback submitted successfully thank you!");
                 setShowModal(true);
             }
@@ -57,23 +61,31 @@ const FeedBackForm = () => {
         }
     }
 
-    const handleGetFeedback = async () => {
+    const handleRating = useCallback((value) => {
+        setRating(value);
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            rating: value
+        }));
+    }, []);
+
+    const handleDeleteFeedbacks = async () => {
         try {
-            const response = await axios.get(`${process.env.NODE_ENV === "development" ? "http://localhost:5000" : "https://sunopticalfeedback.onrender.com"}/api/feedback`);
-            console.log("response", response);
+            const response = await axios.delete(`${apiEndPointUrl}/api/feedback`);
         }
         catch (error) {
-            console.log('Error getting feedback:', error);
+            console.log("Error in deleteFeedbacks", error);
         }
     }
 
     const canSubmit = useMemo(() => {
-        if (formData.name !== "" && formData.email !== "" && formData.message !== "") return true;
+        if (formData.name !== "" && (formData.email || formData.phoneNumber) !== "" && formData.message !== "") return true;
         return false;
     }, [formData])
 
     return (
         <>
+            <TripleTapComponent />
             <div className='input-wrapper'>
                 <div className='thank-you-text'>Thank you for visiting</div>
                 <div className='header'>
@@ -89,6 +101,14 @@ const FeedBackForm = () => {
                     <input required placeholder='Please type your email' name="email" type='email' value={formData.email} onChange={handleChange}>
                     </input>
                 </div>
+                <div className='phone-number-input'>
+                    <label htmlFor='phoneNumber'>Phone: <span className='required-field'>*</span></label>
+                    <input required placeholder='Please type your phone number' name="phoneNumber" type='text' value={formData.phoneNumber} onChange={handleChange} pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" />
+                </div>
+                <div className='rating-input'>
+                    <h3 className='rating-header-text'>Please Provide Your Rating</h3>
+                    <Rating initialValue={rating} onChange={handleRating}></Rating>
+                </div>
                 <div className='text-area-input'>
                     <label htmlFor='message'>Message:</label>
                     <textarea placeholder='Please type your feedback' name="message" type='text' value={formData.message} onChange={handleChange}>
@@ -98,7 +118,7 @@ const FeedBackForm = () => {
 
             <button className={`submit-btn ${!canSubmit ? "disable" : ""}`} onClick={() => handleSubmit()}>Submit</button>
             {showModal && <MessageModal message={message} showModal={showModal} setShowModal={setShowModal} />}
-            <button onClick={() => handleGetFeedback()}>Get feedbacks</button>
+            {isDevelopment && <button className='delete-btn' onClick={({ }) => handleDeleteFeedbacks()}>Delete</button>}
         </>
     )
 }

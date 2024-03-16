@@ -5,11 +5,11 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import path from "path";
 import { fileURLToPath } from 'url';
+import feedbackRoutes from "../backend/routes/feedbackRoutes.js";
 dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 import connectDB from "./config/db.mjs";
-import { getFeedBackResponse, sendFeedBack } from "./controllers/feedBackControllers.mjs";
 const app = express();
 connectDB();
 const PORT = process.env.PORT || 5000;
@@ -26,5 +26,5 @@ else {
         res.send("Api is running...");
     })
 }
-app.use("/api/feedback", getFeedBackResponse);
+app.use("/api/feedback", feedbackRoutes);
 app.listen(PORT, console.log(`server is running on port ${PORT}`));

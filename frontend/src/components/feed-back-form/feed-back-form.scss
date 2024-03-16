@@ -4,7 +4,7 @@
     justify-content: center;
     flex-direction: column;
     height: calc(100% - 100px);
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.8);
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
@@ -22,13 +22,15 @@
 
     .name,
     .email,
-    .text-area {
+    .text-area,
+    .phone-number,
+    .rating {
         &-input {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 70px;
+            height: 100px;
             margin-bottom: 20px;
             max-width: 500px;
             color: #fff;
@@ -55,6 +57,14 @@
         }
     }
 
+    .rating {
+        &-input {
+            .rating-header-text {
+                margin: 0;
+            }
+        }
+    }
+
     .text-area-input {
         height: 150px;
 
@@ -73,7 +83,8 @@
     }
 }
 
-.submit-btn {
+.submit-btn,
+.delete-btn {
     padding: 10px 30px;
     border-radius: 20px;
     font-weight: bold;
@@ -86,4 +97,13 @@
         cursor: not-allowed;
         pointer-events: none;
     }
+}
+
+.delete-btn {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.required-field {
+    color: #ff0000;
 }

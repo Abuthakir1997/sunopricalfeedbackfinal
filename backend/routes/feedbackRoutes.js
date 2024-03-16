@@ -1,5 +1,7 @@
 import express from "express";
-import { sendFeedBack, getFeedBack } from "../controllers/feedBackControllers.mjs";
+import { sendFeedBack, getFeedBack, deleteFeedbacks } from "../controllers/feedBackControllers.mjs";
 const router = express.Router();
-router.route("/").post(sendFeedBack).get(getFeedBack);
+router.get("/", getFeedBack);
+router.post("/", sendFeedBack);
+router.delete("/", deleteFeedbacks);
 export default router;
