@@ -4,7 +4,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 module.exports = {
     entry: './src/index.js', // Entry point of your application
     output: {
-        path: path.resolve(__dirname, 'build'), // Output directory
+        path: path.resolve(__dirname, './build'), // Output directory
         filename: 'bundle.js', // Output filename
     },
     module: {
@@ -16,6 +16,7 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['@babel/preset-env', '@babel/preset-react'],
+                        plugins: ["@babel/plugin-proposal-private-property-in-object"]
                     },
                 },
             },
