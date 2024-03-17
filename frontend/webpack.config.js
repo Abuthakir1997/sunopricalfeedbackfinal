@@ -7,21 +7,6 @@ module.exports = {
         path: path.resolve(__dirname, './build'), // Output directory
         filename: 'bundle.js', // Output filename
     },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env', '@babel/preset-react'],
-                        plugins: ["@babel/plugin-proposal-private-property-in-object"]
-                    },
-                },
-            },
-        ],
-    },
     plugins: [
         new CompressionPlugin({
             test: /\.(js|css)$/, // Specify the file types you want to gzip
