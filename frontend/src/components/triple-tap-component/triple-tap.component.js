@@ -17,6 +17,7 @@ const TripleTapComponent = () => {
         };
 
         if (tapCount === 3) {
+            console.log("tapCount", tapCount);
             navigate('/customerFeedbacks');
             setTapCount(0);
         }
