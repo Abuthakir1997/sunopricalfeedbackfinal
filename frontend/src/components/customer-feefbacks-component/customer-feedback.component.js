@@ -17,7 +17,7 @@ const CustomerFeedbacks = () => {
             console.log('Error getting feedback:', error);
         }
     }
-
+    console.log("feedbacks", feedBacks);
     const feedBacksElement = useMemo(() => {
         if (!feedBacks.length) return <div className='no-data-message'>No Datas Available</div>;
         return feedBacks.map((feedBack, index) => {
@@ -52,7 +52,7 @@ const CustomerFeedbacks = () => {
 
     useEffect(() => {
         handleGetFeedback();
-    }, [handleGetFeedback]);
+    }, []);
 
     return (
         <>
