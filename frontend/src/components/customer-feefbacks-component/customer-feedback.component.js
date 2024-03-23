@@ -18,7 +18,7 @@ const CustomerFeedbacks = () => {
     }
 
     const feedBacksElement = useMemo(() => {
-        if (!feedBacks.length) return null;
+        if (!feedBacks.length) return <div className='no-data-message'>No Datas Available</div>;
         return feedBacks.map((feedBack, index) => {
             const { name, message, email } = feedBack;
             return (

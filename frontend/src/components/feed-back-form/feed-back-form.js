@@ -5,6 +5,7 @@ import MessageModal from '../message-modal/message-modal';
 import TripleTapComponent from '../triple-tap-component/triple-tap.component';
 import Rating from '../rating/rating-component';
 import { checkIfEmailIsValid } from '../../utils/validation.utils';
+import { apiEndPointUrl, isDevelopment } from '../../utils/common.utils';
 const FeedBackForm = () => {
     const [formData, setFormData] = useState({
         name: "",
@@ -46,8 +47,8 @@ const FeedBackForm = () => {
         return isValid;
     }, [formData]);
 
-    const isDevelopment = process.env.NODE_ENV === "development";
-    const apiEndPointUrl = `${process.env.NODE_ENV === "development" ? "http://localhost:5000" : "https://sunopticalfeedback.onrender.com"}`
+    // const isDevelopment = process.env.NODE_ENV === "development";
+    // const apiEndPointUrl = `${process.env.NODE_ENV === "development" ? "http://localhost:5000" : "https://sunopticalfeedback.onrender.com"}`
     const handleSubmit = async () => {
         try {
             if (!checkDataValid(formData)) {

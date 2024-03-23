@@ -1,0 +1,2 @@
+export const isDevelopment = process.env.NODE_ENV === "development";
+export const apiEndPointUrl = `${process.env.NODE_ENV === "development" ? "http://localhost:5000" : "https://sunopticalfeedback.onrender.com"}`
