@@ -3,12 +3,13 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./customer-feedback.component.styles.scss";
 import { checkIfHasValid } from '../../utils/validation.utils';
+import { apiEndPointUrl } from '../../utils/common.utils';
 const CustomerFeedbacks = () => {
     const [feedBacks, setFeedBacks] = useState([]);
     let navigate = useNavigate();
     const handleGetFeedback = async () => {
         try {
-            const response = await axios.get(`${process.env.NODE_ENV === "development" ? "http://localhost:5000" : "https://sunopticalfeedback.onrender.com"}/api/feedback`);
+            const response = await axios.get(`${apiEndPointUrl}/api/feedback`);
             setFeedBacks([...response.data]);
 
         }
@@ -51,7 +52,7 @@ const CustomerFeedbacks = () => {
 
     useEffect(() => {
         handleGetFeedback();
-    }, []);
+    }, [handleGetFeedback]);
 
     return (
         <>
