@@ -10,3 +10,9 @@ export const checkIfEmailIsValid = (email) => {
     return false;
 }
 
+export const checkIfArrayHasValue = (arr) => {
+    if (arr.length !== 0 && arr !== null) {
+        return true;
+    }
+    return false;
+}

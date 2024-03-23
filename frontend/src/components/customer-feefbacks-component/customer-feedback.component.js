@@ -10,6 +10,7 @@ const CustomerFeedbacks = () => {
     const handleGetFeedback = async () => {
         try {
             const response = await axios.get(`${apiEndPointUrl}/api/feedback`);
+            console.log("response", response);
             setFeedBacks([...response.data]);
 
         }
@@ -51,7 +52,10 @@ const CustomerFeedbacks = () => {
     }
 
     useEffect(() => {
-        handleGetFeedback();
+        setTimeout(() => {
+            handleGetFeedback();
+        }, 2000);
+
     }, []);
 
     return (

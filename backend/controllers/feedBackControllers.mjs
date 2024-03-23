@@ -39,6 +39,7 @@ const sendFeedBack = async (req, res) => {
 const getFeedBack = async (req, res) => {
     try {
         const feedback = await Feedback.find();
+        console.log("feedback in route", feedback);
         res.status(200).json(feedback);
     }
     catch (error) {
