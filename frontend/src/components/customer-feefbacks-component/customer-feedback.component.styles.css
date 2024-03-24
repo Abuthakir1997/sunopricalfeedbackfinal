@@ -1,0 +1,51 @@
+.customer-feedbacks-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+}
+.customer-feedbacks-container-header {
+  margin-top: 10px;
+  color: #fff;
+}
+.customer-feedbacks-container .close {
+  font-weight: bold;
+  font-size: 1rem;
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
+  top: 0;
+  background: red;
+  padding: 15px;
+  border-radius: 50%;
+}
+.customer-feedbacks-container-contents {
+  flex: 1 1 auto;
+  color: #fff;
+  overflow-x: hidden;
+  padding: 20px;
+}
+.customer-feedbacks-container-contents .get-feedbacks-btn {
+  padding: 10px 30px;
+  border-radius: 20px;
+  font-weight: bold;
+  background: #FFD700;
+  border: 0;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.customer-feedbacks-container-contents-content {
+  display: flex;
+  width: auto;
+  margin: 10px 0;
+  color: #fff;
+  flex-direction: column;
+  background: #15004c;
+  padding: 10px;
+}
+.customer-feedbacks-container-contents-content-name, .customer-feedbacks-container-contents-content-email, .customer-feedbacks-container-contents-content-message {
+  font-weight: bold;
+  margin: 10px;
+  word-wrap: break-word;
+}/*# sourceMappingURL=customer-feedback.component.styles.css.map */
