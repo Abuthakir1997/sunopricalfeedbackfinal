@@ -42,7 +42,6 @@ const getFeedBack = async (req, res) => {
         if (feedback.length === 0) {
             return res.status(404).json({ message: "No feedback found" });
         }
-        console.log("feedback in route", feedback);
         return res.json(feedback);
     }
     catch (error) {
