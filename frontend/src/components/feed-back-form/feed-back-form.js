@@ -6,6 +6,7 @@ import TripleTapComponent from '../triple-tap-component/triple-tap.component';
 import Rating from '../rating/rating-component';
 import { checkIfEmailIsValid } from '../../utils/validation.utils';
 import { apiEndPointUrl, isDevelopment } from '../../utils/common.utils';
+import Loader from '../../shared-components/loader-component';
 const FeedBackForm = () => {
     const [formData, setFormData] = useState({
         name: "",
@@ -95,6 +96,7 @@ const FeedBackForm = () => {
 
     return (
         <>
+            <Loader />
             <TripleTapComponent />
             <div className='input-wrapper'>
                 <div className='thank-you-text'>Thank you for visiting</div>
